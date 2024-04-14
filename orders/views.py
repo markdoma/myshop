@@ -5,7 +5,6 @@ from .tasks import order_created
 from cart.cart import Cart
 
 
-
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
@@ -19,7 +18,7 @@ def order_create(request):
                                         quantity=item['quantity'])
             # clear the cart
             cart.clear()
-            # Launch asynchronous task
+            # launch asynchronous task
             order_created.delay(order.id)
             return render(request,
                           'orders/order/created.html',
